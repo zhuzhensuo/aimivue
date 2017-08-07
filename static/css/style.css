@@ -1,0 +1,59 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0px; padding:0px;}
+table{ border-collapse:collapse; border-spacing:0;}
+fieldset,img{border:0;}
+em,th,i,b{ font-weight:normal; font-style:normal;}
+ol,ul{ list-style-type:none; list-style-position:outside;}
+caption,th{ text-align:left;}
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+body,input{ font-size:14px; font-family:'Microsoft YaHei';}
+body{color:#666; position:relative; z-index:100; background:#fff;}
+div{margin-left:auto;margin-right:auto;}
+font{font-size:14px;font-style:normal;}
+a{text-decoration:none;}
+.clearfix:after { 
+   content: ".";
+   display: block;
+   height: 0;
+   clear: both;
+   visibility: hidden;
+   font-size: 0;
+}
+.clearfix {display:inline-block;}
+*html .clearfix {height:1%;}
+.clearfix {display: block;}
+.clearfix {zoom: 1;}
+
+.f_r{float:right;_display:inline;}
+.f_l{float:left;_display:inline;}
+
+
+	
+/*******start******/
+.w1140,.w1200{ width:1140px;}
+html,body{min-width:1140px;}
+a.btns2{width:97px; height:32px;border:1px solid #FF3248; background:#FF3248;color:white; display:block; text-align:center; line-height:32px;border-radius:16px;}
+a.btns2:hover{ background:white;color:#FF3248;}
+a.btns_disable{ background:#ccc;border-color:#ccc;}
+a.btns_disable:hover{background:#ccc;border-color:#ccc;color:white;}
+
+.shadow{ position:fixed;width:100%;height:100%;left:0;top:0; z-index:1000;}
+.shadow_bg{ position:absolute;left:0;top:0; height:100%; width:100%; background:#000;filter:alpha(opacity=50); opacity:0.5;}
+
+.buttons {
+    height: 40px;
+    width: 126px;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
+    border: none;
+    background: #EF4B5F;
+    cursor: pointer;
+}
+.button{ position:relative;left:0;top:0;border:0 none;outline:0;width:100%; height:100%;color:white;border-radius:4px; background:#FF3248;
+font-family:'Microsoft YaHei';font-size:14px;*height:44px; cursor: pointer;}
+a.btn-link{display:inline-block;width:110px; height:34px;border-radius:17px;text-align:center; line-height:34px;}
+a.redbtn{ background:#FF3549;border:1px solid #FF3549;color:white;}
+a.redbtn:hover{border-color:#C0C0C0;color:#666; background:white;}
+a.whitebtn{ background:white;border:1px solid #C0C0C0;color:#666;}
+a.whitebtn:hover{border-color:#FF3549;color:white; background:#FF3549;}
+.mr5{margin-right:5px;}
