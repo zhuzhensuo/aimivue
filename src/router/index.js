@@ -10,6 +10,7 @@ import loginpage from '@/loginpage'
 import personcenter from '@/personcenter'
 import zhzl from '@/zhzl'
 import store from '@/store'
+import detail from '@/detail'
 Vue.use(Router)
 
 
@@ -52,6 +53,8 @@ const router=new Router({
                 next(true)
             }
         }
+    },{
+        name:'detail',path:'/detail/:id',component:detail
     }
   ]
 })

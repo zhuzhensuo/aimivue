@@ -1,6 +1,6 @@
 <template>
  	<div>
- 		<p class="commontit commontit2"><span>爱米优选</span><font>自主投资&nbsp;&nbsp;期限灵活</font><a href="#">更多理财>></a></p>
+ 		<p class="commontit commontit2"><span>爱米优选</span><font>自主投资&nbsp;&nbsp;期限灵活</font><a href="#" v-if='more'>更多理财>></a></p>
 		<div class="amdq-wrap">
 			<div class="amdqs">
 				<p>爱米优选3月标题</p>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
- 
+  props:['more'],
   data () {
     return {
     }

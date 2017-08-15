@@ -2,14 +2,21 @@
 	<div>
 		<topbar></topbar>
 		<div class="logins">
-			<login></login>
+      <div class="logins-wrap">
+        <div class='w1200 clearfix'>
+          <div style="padding-top:50px;"><login></login></div>
+        </div>
+      </div>
+			
 		</div>
+    <foot></foot>
 	</div>
 </template>
 
 <script>
 import login from './components/login'
 import topbar from './components/topbar'
+import foot from './components/footer'
 import {mapActions,mapState} from 'vuex'
 import router from './router'
 export default {
@@ -22,7 +29,8 @@ export default {
   },
   components:{
   	login,
-  	topbar
+  	topbar,
+    foot
   },
   created(){
     if(this.haslogin){
@@ -42,5 +50,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.logins{ position: fixed; width: 100%; height: 100%;top:0;left:0;}
+	.logins{ height:595px; background:#4FA0FF;}
+  .logins-wrap{width:1400px;background:url(./assets/login_bg.png) no-repeat left bottom;height:595px; }
+
 </style>

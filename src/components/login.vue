@@ -1,5 +1,5 @@
 <template>
-	<div class="login loginn">
+	<div class="login">
 		<div class="login2">
 			<h3>爱米会员登录</h3>
 			<form>
@@ -26,7 +26,7 @@
 					<a href="#">忘记密码？</a>
 				</div>
 				<div class="btns submit">
-					<input type="submit" value="登录" class="loginnow button" @click='logins()'>
+					<input type="submit" value="登录" class="loginnow button" @click='loginIn'>
 				</div>
 				<div class="reg">还没账号？<a href="#">立即注册</a></div>
 			</form>
@@ -45,33 +45,7 @@ export default {
   	shows(b){
   		this.$emit("loadshow",b);
   	},
-  	changeName(data){
-  		this.$store.dispatch('changeName',data);
-  	},
-  	changeLogin(data){
-  		this.$store.dispatch('changeLogin',data);
-  	},
-  	logins(){
-  		var self=this;
-  		var sj=$('.shoujihao').val();
-		var pwd=$('.loginpwd').val();
-		$.ajax({
-			type:'post',
-			url:"http://hkapi.yuanin.com/test.php",
-			data:{module:'user',mothed:'login',mobile:13002172132,password:565296844},
-			success:function(data){
-				if(data.result==0){
-					console.log(data.remark);
-					//return false;
-				}else if(data.result==1){
-					self.shows(false);
-					self.changeName(data['data'][0]['mobile']);
-					self.changeLogin(true);
-				}
-			}
-		})
-
-  	},
+  	...mapActions(['loginIn']),
   	routerfn(){
   	
   	}
@@ -80,9 +54,14 @@ export default {
   beforeRouteEnter(){
   },
   computed:mapState(['haslogin']),
-
   created(){
-  	
+  },
+  watch:{
+  	haslogin(){
+  		if(this.haslogin){
+  			this.shows(false);
+  		}
+  	}
   }
 }
 </script>
@@ -95,7 +74,7 @@ export default {
 .login_header dl dd{ line-height:24px; font-size:22px;border-left:1px solid #333;margin-left:25px;padding-left:25px;margin-top:10px;}
 .logins{ height:595px; background:#4FA0FF;}
 .logins-wrap{width:1400px;background:url(../assets/login_bg.png) no-repeat left bottom;height:595px; }
-.login{width:380px;float:right;margin:50px 180px 0 0;}
+.login{width:380px;float:right;}
 .login2{padding:0 45px;border:1px solid #ddd; background:white;padding-bottom:40px;}
 .login2 div.yzm{*padding-bottom:30px;}
 .login2 h3{ text-align:center;font-size:16px;line-height:70px; height:80px;}
@@ -131,6 +110,5 @@ export default {
 .login-footer dd{color:#999; }
 .login-footer dd span{padding:0 20px;}
 
-.loginn{ position:absolute; width:380px; height:404px; left:50%;top:50%;margin:-202px 0 0 -190px;}
-.loginn .loginnow{border-radius:22px;}
+
 </style>

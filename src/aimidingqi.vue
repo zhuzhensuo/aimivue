@@ -1,5 +1,5 @@
 <template>
-  <div style="height:2000px;">
+  <div>
     <topbar></topbar>
     <div class="smallban"></div>
     <div class="aimilist">
@@ -11,13 +11,15 @@
       </div>
     </div>
     <div class="w1140 amdqwrap">
-      <amdq :more='false'></amdq>
+      <amdq :more='false' :fenyenav='true'></amdq>
     </div>
+    <foot></foot>
   </div>
 </template>
 <script>
-import topbar from './components/topbar';
+import topbar from './components/topbar'
 import amdq from './components/amdq'
+import foot from './components/footer'
 export default {
   name: 'app',
   data (){
@@ -30,7 +32,8 @@ export default {
   },
   components:{
     topbar,
-    amdq
+    amdq,
+    foot
   }
 }
 </script>

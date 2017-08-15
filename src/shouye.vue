@@ -1,7 +1,10 @@
 <template>
-  <div style="height:2000px;">
-    <topbar></topbar>
-    <banner @showbox='show'></banner>
+  <div>
+    <keep-alive>
+      <topbar></topbar>
+    </keep-alive>
+    
+    <banner @showbox='show' keep-alive></banner>
     <div class="main w1140">
         <div class="tonggaolans">
           <div class="news">
@@ -110,13 +113,72 @@
     </div>
 
     <div class="amdq">
-       <amdq :more='true'></amdq>
+       <amdq :more='true' :fenyenav='false'></amdq>
     </div>
      <div class="amdq">
-       <amyx></amyx>
+       <amyx :more='true'></amyx>
     </div>
+    <div class="zixun">
+      <div class="clearfix">
+        <div class="zxzx">
+          <div class="zxzx-wrap">
+            <div class="zxzx-wraps">
+              <p><span>最新资讯</span><a href="#">更多资讯&gt;&gt;</a></p>
+              <div class="zxlist">
+                <ul>
+                  <li><a href="#">重磅喜讯，爱米理财累计交易额突破14亿!</a></li>
+                  <li><a href="#">爱米理财iOS版新版重磅来袭!</a></li>
+                  <li><a href="#">中国人民财产保险股份有限公司为爱米理财用户账户安全承保!</a></li>
+                  <li><a href="#">爱米理财iOS版新版重磅来袭!</a></li>
+                  <li><a href="#">中国人民财产保险股份有限公司为爱米理财用户账户安全承保!</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="zjtz">
+          <div class="zxzx-wrap">
+            <div class="zxzx-wraps">
+              <p><span>最新投资</span></p>
+              <div class="zxlist">
+                <ul>
+                  <li><span>158******68 </span><span>1分钟内投资</span><span>50000</span></li>
+                  <li><span>158******68 </span><span>1分钟内投资</span><span>50000</span></li>
+                  <li><span>158******68 </span><span>1分钟内投资</span><span>50000</span></li>
+                  <li><span>158******68 </span><span>1分钟内投资</span><span>50000</span></li>
+                  <li><span>158******68 </span><span>1分钟内投资</span><span>50000</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+  
+    <div class="brand">
+      <div class="left-arrow"><</div>
+      <div class="brand-list">
+        <ul>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_sina.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_sina.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_sina.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_sina.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_sina.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_picc.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_picc.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_picc.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_picc.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_picc.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_haodai.png" /></span></a></li>
+          <li><a href="javascript:void(0);"><span><img src="http://res.yuanin.com/assets/2017/images/pic_haodai.png" /></span></a></li>
+        </ul>
+      </div>
+      <div class="right-arrow">></div>
+    </div>
+
+
+    </div>
+    <foot></foot>
     <loginbox v-if='seen' @showbox='show'></loginbox>
 
   </div>
@@ -128,6 +190,8 @@ import banner from './components/banner';
 import amdq from './components/amdq';
 import amyx from './components/amyx';
 import loginbox from './components/loginbox'
+import foot from './components/footer'
+import router from './router'
 export default {
   name: 'app',
   data (){
@@ -139,6 +203,49 @@ export default {
   methods:{
     show(v){
         this.seen=v;
+    },
+    domove(){
+      var move=function(){
+      var left=$(".brand").find(".left-arrow");
+      var right=$(".brand").find(".right-arrow");
+      var li=$(".brand").find("li");
+      var ul=$(".brand").find("ul");
+      var index=0,timer=null,amount=0;
+      var w=$(".brand-list").outerWidth();
+      ul.css("width",li.size()*li.outerWidth());
+      amount=Math.ceil(ul.outerWidth()/w);
+      var animation=function(){
+        ul.stop(true,false).animate({left:-(index*w)},"slow");
+      }
+      right.click(function(){
+        
+        index++;
+        if(index>=amount){index=0}
+        animation();
+        
+      });
+      
+      left.click(function(){
+        index--;
+        if(index<0){index=amount-1}
+        animation();
+      });
+      
+      var auto=function(){
+        timer=setInterval(function(){
+          index++;
+          if(index>=amount){index=0}
+          animation();
+        },3000);
+      }
+      //auto();
+      $(".brand").hover(function(){
+        //clearInterval(timer);
+      },function(){
+        //auto();
+      });
+  }
+     move();
     }
   },
   components:{
@@ -146,10 +253,12 @@ export default {
     banner,
     amdq,
     amyx,
-    loginbox
+    loginbox,
+    foot
   },
   computed:mapState(['haslogin']),
-  created(){
+  mounted(){
+    this.domove();
   }
 }
 </script>
@@ -209,4 +318,30 @@ export default {
 .gifts dl dd strong{color:#ec5c55;font-size:29px;}
 .gifts-wrap{padding:30px 0 0 40px;}
 .amdq{margin-top:30px;}
+
+.zixun{margin-top:35px;}
+.zxzx{width:547px;float:left;height:235px; background:#D4E8FF;}
+.zjtz{width:547px;float:right;height:235px; background:#FFDBB2;}
+.zxzx-wrap{padding:10px;}
+.zxzx-wraps{border:1px solid #fff;padding:10px;}
+.zxzx-wraps p{ position:relative;}
+.zxzx-wraps p span{font-size:22px;color:#333;}
+.zxzx-wraps p a{ position:absolute;right:0; top:0;color:#333;}
+.zxzx-wraps p a:hover{color:#ff4e50;}
+.zxlist{margin-top:10px;}
+.zxlist ul li{ line-height:30px;font-size:16px; font-family:Arial;}
+.zxlist ul li a{color:#333;}
+.zxlist ul li a:hover{ text-decoration:underline;}
+.zxlist ul li span{ display:inline-block; width:33.3%;}
+
+.brand{ height:50px; position:relative;margin-top:30px;}
+.left-arrow,.right-arrow{ font-family:'黑体'; height:50px; width:50px; line-height:50px; position:absolute;top:0; cursor:pointer;}
+.left-arrow{left:0;}
+.right-arrow{ right:0; text-align:right;}
+.brand-list{ height:52px; width:1026px; position:relative; overflow:hidden;}
+.brand-list ul{ position:absolute;left:0;top:0;}
+.brand-list ul li{ width:205px;float:left;}
+.brand-list ul li a{float:left; width:100%; text-align:center;}
+.brand-list ul li a span{ display:block; width:85%;margin:0 auto;border:1px solid #E5E5E5;}
+.brand-list ul li span img{ height:50px; display:block; margin:0 auto;}
 </style>

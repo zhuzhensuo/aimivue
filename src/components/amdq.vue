@@ -1,40 +1,82 @@
 <template>
  <div>
- 	<p class="commontit commontit2"><span>爱米定期</span><font>定期理财&nbsp;&nbsp;稳定增值</font><a href="#" v-show='more'>更多理财>></a></p>
+ 	<p class="commontit commontit2"><span>爱米定期</span><font>定期理财&nbsp;&nbsp;稳定增值</font>
+ 		<router-link to='/aimidingqi' v-if='more'>更多理财>></router-link>
+ 	</p>
  	<div class="amdq-wrap">
-		<div class="amdqs">
-			<p>爱米定期3月标题</p>
+		<div class="amdqs" v-for='(data,k) in amdq' v-if='k<(now+1)*displayNum && k>=(now)*displayNum'>
+			<p>{{data.decs}}</p>
 			<div class="clearfix">
 				<dl class="rate">
-					<dt>9.00<span>％</span></dt>
+					<dt>{{data.rate}}<span>％</span></dt>
 					<dd>预期年化收益率</dd>
 				</dl>
 				<dl>
-					<dt>3个月</dt>
+					<dt>{{data.month}}个月</dt>
 					<dd>期限</dd>
 				</dl>
 				<dl>
-					<dt>64,500</dt>
+					<dt>{{data.amount}}</dt>
 					<dd>剩余份额</dd>
 				</dl>
 				<dl class="percent">
-					<dt><span><i style="width:45%;">&nbsp;</i></span></dt>
-					<dd>进度：45％</dd>
+					<dt><span><i :style="{'width':data.progress+'%'}">&nbsp;</i></span></dt>
+					<dd>进度：{{data.progress}}％</dd>
 				</dl>
-				<div><a href="#" class="btns2">立即抢购</a></div>
+				<div>
+					<router-link v-if='data.soldout==false' :to='{name:"detail",params:{"id":data.id}}'><a href="#" class="btns2">立即抢购</a></router-link>
+					<a v-else href="javascript:void(0)" class="btns2 btns_disable">立即抢购</a>
+
+				</div>
 			</div>
+
 		</div>
 				
+	</div>
+	<div class="indexs">
+		<page :pageNum='5' v-show='fenyenav' :pageTotal='total' @getCurVal='getCurVal'></page>
 	</div>
  </div>
 </template>
 
 <script>
+import {mapActions,mapState} from 'vuex'
+import axios from 'axios'
+import page from './page'
+import Mock from 'mockjs'
+//import faker from 'faker'
 export default {
-  props:['more'],
+  props:['more','fenyenav'],
   data () {
     return {
+    	now:0,
+    	displayNum:5
     }
+  },
+  components:{
+  	page
+  },
+  methods:{
+  	getCurVal(now){
+  		this.now=now;
+  	},
+  	...mapActions(['getAmdqData'])
+  },
+  computed:{
+  	amdq(){
+  		return this.$store.state.amdq;
+  	},
+  	total(){
+  		return Math.ceil(this.amdq.length/this.displayNum);
+  	}
+  },
+  created(){
+  	this.getAmdqData();
+  	var random=Mock.Random;
+  	//var img=random.image('1903x350' ,'#cc0000','Mockjs');
+  	// axios.get('/api/address/',{}).then(function(res){
+  	// 	console.log(res.data);
+  	// })
   }
 }
 </script>
@@ -59,4 +101,5 @@ export default {
 	.amdqs dl.percent dt span{ position:relative; display:block; width:154px; height:4px; background:#EEEEEE;top:20px;border-radius:2px;}
 	.amdqs dl.percent dt span i{ position:absolute;left:0;top:0; height:100%; background:#33B5FF;border-radius:2px;}
 	.amdqs:hover{box-shadow:0 0 13px #ccc;border-color:white;transition:0.3s;}
+	.indexs{margin-top: 40px;}
 </style>

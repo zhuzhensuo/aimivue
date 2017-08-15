@@ -25,7 +25,7 @@
 					<li><a href="#">邀请好友</a><i></i></li>
 					<li><a href="register.html">帮助中心</a></li>
 					<li class="logandreg" v-if='login==false'><router-link class="loginuser" to='/loginpage'><span>登录</span><s></s></router-link><a href="javascript:void(0);">注册</a></li>
-					<li class="logandreg" v-else><router-link to='/personcenter' tag='span'><a href="javascript:void(0);" class="loginuser">{{name}}<s></s></a></router-link><a href="javascript:void(0);" @click='loginout();loginout2()'>退出</a></li>
+					<li class="logandreg" v-else><router-link to='/personcenter' tag='span'><a href="javascript:void(0);" class="loginuser">{{name}}<s></s></a></router-link><a href="javascript:void(0);" @click='loginout();'>退出</a></li>
 					<li class="app"><a href="#">APP下载</a></li>
 				</ul>
 			</div>
@@ -39,18 +39,15 @@
 					<div class="navs f_r">
 						<ul>
 							<li><router-link to='/'>首页</router-link></li>
-							<li :class='{"active":secondmenu}' @mouseover='secondmenu=true' @mouseout='secondmenu=false'>
+							<li :class='{"active":secondmenu}'>
 								<a href="javascript:void(0)"><span>我要理财</span></a>
-								<transition name='slide-fade'>
-									<div class="secondmenu" v-show='secondmenu'>
-										<dl>
-											<dd><router-link to='/aimidingqi'>爱米定期</router-link></dd>
-											<dd><router-link to='/aimiyouxuan'>爱米优选</router-link></dd>
-										</dl>
-									</div>
-								</transition>
+								<div class="secondmenu">
+									<dl>
+										<dd><router-link to='/aimidingqi'>爱米定期</router-link></dd>
+										<dd><router-link to='/aimiyouxuan'>爱米优选</router-link></dd>
+									</dl>
+								</div>
 							</li>
-							<li><a href="###">安全保障</a></li>
 							<router-link to='/xxpl' tag='li'><a>信息披露</a></router-link>
 							<router-link to='/personcenter' tag='li'><a>我的账户</a></router-link>
 						</ul>
@@ -81,15 +78,76 @@ export default {
   	login:state=>state.haslogin
   }),
   created(){
-	
+	document.documentElement.scrollTop=0;
   },
   beforeRouteLeave(){
+  },
+  mounted(){
+  	document.body.scrollTop = 0
+	document.documentElement.scrollTop = 0
+  	var setMenu=function(){
+		var li=$(".navs").find("li");
+		li.each(function(){
+			var div=$(this).find("div");
+			$(this).hover(function(){
+				if(div.size()>0){
+					$(this).addClass("active");
+					div.css({display:"block",opacity:0}).stop(true,false).animate({top:40,opacity:1},300);
+				}
+			},function(){
+				$(this).removeClass("active");
+				div.stop(true,false).animate({top:20,opacity:0},300,function(){
+					$(this).hide();																  
+				});
+			});
+		});
+	}
+	setMenu();
+
+	function GetFixed(id,className,a){
+		this.id=$("#"+id);
+		this.a=$("."+a);
+		this.div=$("."+className);
+		this.init.apply(this,arguments);
+	}
+	GetFixed.prototype={
+		init:function(){
+			if (!this.a.length) {
+				return;
+			}
+			this.addEvent();
+			this.resize();
+		},
+		addEvent:function(){
+			var t=this.a.offset().top,that=this;
+			
+			var fn=function(){
+				var top=$(document).scrollTop();
+				if(top>=t){
+					that.id.addClass("fix-active");
+				}else{
+					that.id.removeClass("fix-active");
+				}
+			}
+			fn();
+			$(window).scroll(function(){
+				fn();	
+			});
+		},
+		resize:function(){
+			var that=this;
+			$(window).resize(function(){
+				that.addEvent();
+			});
+		}
+	}
+	new GetFixed("nav","navwrap","navwrap");
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 	.header{ height:49px;border-bottom:1px solid #eee;line-height:49px; background:white;}
 	.head_left{ }
 	.head_left ul li{float:left;margin-right:13px;}
@@ -99,6 +157,13 @@ export default {
 	.head ul li.weixin a{ width:30px; height:30px; background:url(../assets/weixin.png) no-repeat center center;}
 	.head ul li.weixin a:hover{background:url(../assets/weixin_active.png) no-repeat center center;} 
 	.head_left ul li.img{margin-top:10px; position:relative; z-index:100; width:30px; height:30px;border:1px solid #ccc;border-radius:4px;}
+	.head_left ul li.img div{ position:absolute;top:35px;left:-57px;width:154px; height:180px; background:url(../assets/arrowbg.png) no-repeat left top;text-align:center; z-index:10;}
+	.head_left ul li.img div span{padding-top:35px;display:block;}
+	.head_left ul li.img div img{display:inline-block;}
+	.head_left ul li.img div dl{ font-size:12px; line-height:normal;padding-top:30px;}
+</style>
+<style scoped>
+	
 	.head_right ul li{float:left; position:relative; z-index: 10;}
 	.head_right ul li i,.head_right ul li.logandreg a s{ position:absolute; height:12px; width:1px; background:#DCDCDC;right:0;top:19px;}
 	.head_right ul li.logandreg a s{top:3px;}
@@ -110,11 +175,6 @@ export default {
 	.head_right ul li.app a:hover{color:white;}
 
 	.head_right ul li a:hover{color:#FF3248;}
-	.head_left ul li.img div{ position:absolute;top:35px;left:-57px;width:154px; height:180px; background:url(../assets/arrowbg.png) no-repeat left top;text-align:center; z-index:10;}
-	.head_left ul li.img div span{padding-top:35px;display:block;}
-	.head_left ul li.img div img{display:inline-block;}
-	.head_left ul li.img div dl{ font-size:12px; line-height:normal;padding-top:30px;}
-
 	.navwrap{height:82px; position:sticky; z-index:11;top:0;}
 	.navfix{ position:absolute;left:0;top:0; width:100%;height:82px;z-index:999; background:white;}
 	.fix-active{ position:fixed;box-shadow:0 0 5px #888;filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');}
@@ -128,7 +188,7 @@ export default {
 	.navs ul li.active a{color:#FF3248;}
 	.navs ul li a i{ position:absolute;width:15px; height:8px;background-position:-128px -26px;right:-18px;top:7px;}
 	.navs ul li.on a i{background-position:-128px 0px;}
-	.navs ul li .secondmenu{ position:absolute; width:100%;left:-1px;top:40px;border:1px solid #F3F3F3;border-top:none;background:white;}
+	.navs ul li .secondmenu{ position:absolute; width:100%;left:-1px;top:20px;border:1px solid #F3F3F3;border-top:none;background:white; display: none;}
 	.navs ul li .secondmenu dl dd{ line-height:35px;position:relative;height:35px;}
 	.navs ul li .secondmenu dl dd a{ display:block;height:35px; font-size:15px;color:#666;}
 	.navs ul li .secondmenu dl dd a:hover{ background:#E9F7FF;color:#ff4e50;}

@@ -1,16 +1,6 @@
 <template>
  <div class="banner">
-		<div class="flash">
-			<div class="flexslide">
-				<ul class="slides">
-					<li v-for='obj in banner' :style='{backgroundImage:obj.src}'><a :href="obj.href" target="_blank">obj.src</a></li>
-					<!-- <li style="background:url(static/images/bigbanner.png) no-repeat center top;background-size:cover;"><a href="#"></a></li>
-					<li style="background:url(static/images/bigbanner.png) no-repeat center top;background-size:cover;"><a href="#"></a></li>
-					<li style="background:url(static/images/bigbanner.png) no-repeat center top;background-size:cover;"><a href="#"></a></li>
-					<li style="background:url(static/images/bigbanner.png) no-repeat center top;background-size:cover;"><a href="#"></a></li> -->
-				</ul>
-			</div>
-		</div>
+		<ban></ban>
 		<div class="bans w1140">
 			<div class="f_r zhuce_model">
 				<div class="opacitys"></div>
@@ -36,6 +26,7 @@
 <script>
 import axios from 'axios';
 import {mapActions,mapState} from 'vuex';
+import ban from './ban'
 
 export default {
   data () {
@@ -47,14 +38,12 @@ export default {
   		if(!this.haslogin){
   			this.$emit('showbox',b);
   		}
-  	},
-  	...mapActions(['getBanData'])
- 
+  	}
 },
-created (){
-  	this.getBanData();
-  },
-computed:mapState(['banner','haslogin'])
+components:{
+	ban
+},
+computed:mapState(['haslogin'])
 }
 </script>
 

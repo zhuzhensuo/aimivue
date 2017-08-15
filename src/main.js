@@ -12,5 +12,8 @@ new Vue({
   el: '#app',
   router,
   vuex,
+  mounted(){
+
+  },
   render: h => h(App)
 })

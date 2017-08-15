@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="w1140 amdqwrap">
-      <amyx></amyx>
+      <amyx :more='false'></amyx>
     </div>
   </div>
 </template>
