@@ -22,11 +22,11 @@
 					<div class="wrongtips"><p>您输入密码不正确，请重新输入</p></div>
 				</div>
 				<div class="rempwd clearfix">
-					<span><input type="checkbox">&nbsp;记住用户名</span>
+					<span><input type="checkbox" v-model='rempwd'>&nbsp;记住用户名</span>
 					<a href="#">忘记密码？</a>
 				</div>
 				<div class="btns submit">
-					<input type="submit" value="登录" class="loginnow button" @click='loginIn'>
+					<input type="submit" value="登录" class="loginnow button" @click='loginIn();'>
 				</div>
 				<div class="reg">还没账号？<a href="#">立即注册</a></div>
 			</form>
@@ -35,33 +35,36 @@
 </template>
 
 <script>
-import {mapActions,mapState} from 'vuex'
+import {mapActions,mapState,mapMutations} from 'vuex'
+import Cookies from '../../static/js/index.js'
+var mixin={
+	watch:{
+	  	haslogin(){
+	  		if(this.haslogin){
+	  			this.shows(false);
+	  		}
+	  	},
+	  	rempwd(){
+	  		this.$store.dispatch('rememberpwds',this.rempwd);
+	  	}
+  	}
+}
 export default {
   data () {
     return {
+    	rempwd:false
     }
   },
+  mixins:[mixin],
   methods:{
   	shows(b){
   		this.$emit("loadshow",b);
   	},
   	...mapActions(['loginIn']),
-  	routerfn(){
-  	
-  	}
-
   },
-  beforeRouteEnter(){
-  },
-  computed:mapState(['haslogin']),
+  computed:mapState(['haslogin','username']),
   created(){
-  },
-  watch:{
-  	haslogin(){
-  		if(this.haslogin){
-  			this.shows(false);
-  		}
-  	}
+  	
   }
 }
 </script>

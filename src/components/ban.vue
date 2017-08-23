@@ -4,7 +4,7 @@
  	<div class="flex-next arrow"></div>
 	<div class="flexslide">
 		<ul class="slides">
-			<li v-for='obj in banner' :style='{backgroundImage:obj.url}'><a :href="obj.href" target="_blank"></a></li>
+			<li v-for='obj in banner' :style="{'backgroundImage':'url('+obj.url+')'}"><a :href="obj.href" target="_blank"></a></li>
 		</ul>
 	</div>
 </div>
@@ -12,22 +12,29 @@
 
 <script>
 import axios from 'axios';
-import {mapActions,mapState} from 'vuex';
-
+import {mapActions,mapMutations,mapState,mapGetters} from 'vuex';
 export default {
   data () {
     return {
+    	
     }
   },
   methods:{
-  	...mapActions(['getBanData'])
+  	...mapActions(['getBanData']),
+ },
+
+computed:{
+	...mapState({
+		banner:state=>state.cart.banner
+	}),
+	...mapGetters(['len'])
 },
-computed:mapState(['banner']),
 created(){
-	
-	this.getBanData();
+  	this.getBanData();
   },
   mounted(){
+  	var self=this;
+  	console.log(this.len);
   	var Flexslide=function(id){
   		this.el=document.getElementById(id);
   		this.ul=this.el.getElementsByClassName('slides')[0];
@@ -76,7 +83,13 @@ created(){
 			}
 		}
 	}
-	new Flexslide('flash');
+	var timer=setInterval(()=>{
+		if(self.len){
+			new Flexslide('flash');
+			clearInterval(timer);
+			console.log(self.len);
+		}
+	},500)
 	
   }
   
@@ -89,8 +102,8 @@ created(){
 	.flash{ position: absolute;top:0;left:0; width: 100%;}
 	.banner ul li{ height:350px;float:left;width:100%; overflow:hidden; background-repeat: no-repeat; background-size:auto 100%; background-position: center center;}
 	.flexslide{ height:350px; position:absolute; width:100%;left:0;top:0;}
-	.flexslide ul.slides{ position: absolute;left:0;top:0; height: 100%;transition: all .5s ease-out;}
-	.flexslide ul.slides li{ height:350px;float:left;width:100%; overflow:hidden;}
+	.flexslide ul.slides{ position: absolute;left:0;top:0; height: 350px;transition: all .5s ease-out;width:100%;}
+	.flexslide ul.slides li{ height:350px;float:left;width:100%; overflow:hidden;width:100%; }
 	.flexslide ul.slides li a{ display:block; height:100%; width:100%;}
 	.flex-control-nav {width:1200px; position: absolute; bottom: 10px; text-align:left; z-index:100;left:50%;margin-left:-600px;}
 	.flex-control-nav li {margin: 0 10px; display: inline-block; zoom: 1; *display: inline;float:left;}

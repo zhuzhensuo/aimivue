@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import {mapActions,mapState} from 'vuex'
+import {mapActions,mapState,mapMutations} from 'vuex'
 import axios from 'axios'
 import page from './page'
 import Mock from 'mockjs'
@@ -63,9 +63,9 @@ export default {
   	...mapActions(['getAmdqData'])
   },
   computed:{
-  	amdq(){
-  		return this.$store.state.amdq;
-  	},
+  	...mapState({
+  		amdq:state=>state.cart.amdq
+  	}),
   	total(){
   		return Math.ceil(this.amdq.length/this.displayNum);
   	}
@@ -77,6 +77,9 @@ export default {
   	// axios.get('/api/address/',{}).then(function(res){
   	// 	console.log(res.data);
   	// })
+  },
+  mounted(){
+
   }
 }
 </script>

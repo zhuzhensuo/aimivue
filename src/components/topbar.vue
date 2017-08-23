@@ -24,7 +24,7 @@
 				<ul>
 					<li><a href="#">邀请好友</a><i></i></li>
 					<li><a href="register.html">帮助中心</a></li>
-					<li class="logandreg" v-if='login==false'><router-link class="loginuser" to='/loginpage'><span>登录</span><s></s></router-link><a href="javascript:void(0);">注册</a></li>
+					<li class="logandreg" v-if='login==false'><router-link class="loginuser" to='/loginpage'><span>登录</span><s></s></router-link><router-link to='/register'>注册</router-link></li>
 					<li class="logandreg" v-else><router-link to='/personcenter' tag='span'><a href="javascript:void(0);" class="loginuser">{{name}}<s></s></a></router-link><a href="javascript:void(0);" @click='loginout();'>退出</a></li>
 					<li class="app"><a href="#">APP下载</a></li>
 				</ul>
@@ -61,7 +61,7 @@
 
 <script>
 import {mapState,mapActions} from 'vuex'
-
+import Cookies from '../../static/js/index.js'
 export default {
   data () {
     return {
@@ -72,13 +72,26 @@ export default {
   },
   methods:{
   	...mapActions(['loginout']),
+  	changeNam(data){
+  		this.$store.commit('CHANGE_NAME',data)
+  	},
+  	changeLogi(data){
+  		this.$store.commit('CHANGE_LOGIN',data)
+  	}
   },
   computed:mapState({
-  	name:state=>state.username,
-  	login:state=>state.haslogin
+  	name:state=>state.cart.username,
+  	login:state=>state.cart.haslogin
   }),
   created(){
 	document.documentElement.scrollTop=0;
+	var name=Cookies.getCookie('name');
+	var islogin=Cookies.getCookie('islogin');
+	
+	if(name!=null && islogin!=null){
+		this.changeNam(name);
+		this.changeLogi(islogin);
+	}
   },
   beforeRouteLeave(){
   },

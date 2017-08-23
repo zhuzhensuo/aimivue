@@ -9,7 +9,7 @@
 			</ul>
 		</div>
 		<div class="allwraps">
-			<div class="data_display" v-for='(item,index) in hkjh' v-if='index>=now*displayNum && index<(now+1)*displayNum'>
+			<div class="data_display" v-cloak v-for='(item,index) in hkjh' v-if='index>=now*displayNum && index<(now+1)*displayNum'>
 				<ul class="clearfix">
 					<li class="time_limit"><span><a href="#">{{index+1}}</a></span></li>
 					<li>{{item.money}}元</li>
@@ -49,7 +49,9 @@ export default {
   	}
   },
   computed:{
-  	...mapState(['hkjh']),
+  	...mapState({
+      hkjh:state=>state.cart.hkjh
+    }),
   	total(){
   		return Math.ceil(this.hkjh.length/this.displayNum)
   	}
@@ -65,7 +67,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.index{margin-top: 30px;}
+.index{margin-top: 30px;height:24px;}
 .data_tit li{float:left;width:25%; background:#fff; height:60px;cursor:pointer;text-align:center; line-height:56px; font-size:20px;color:#333; position:relative;}
 .data_tit li.active span{ background:white;border-bottom:2px solid #FF3248;color:#FF3248;height:60px; line-height:56px;}
 .data_tit li span{ display:block;min-width:150px;margin:0 auto;max-width:175px;}

@@ -11,6 +11,10 @@ import personcenter from '@/personcenter'
 import zhzl from '@/zhzl'
 import store from '@/store'
 import detail from '@/detail'
+import xxpls from '@/xxpls'
+import ptdsj from '@/ptdsj'
+import xszy from '@/xszy'
+import register from '@/register'
 Vue.use(Router)
 
 
@@ -30,9 +34,15 @@ const router=new Router({
         component:xxpl,
         children:[
             {
-                path:'/',component:about
+                path:'/',component:xxpls
+            },{
+                path:'about',component:about
             },{
                 path:'manage',component:manage
+            },{
+                path:'ptdsj',component:ptdsj
+            },{
+                path:'xszy',component:xszy
             }
         ]
     },{
@@ -55,6 +65,8 @@ const router=new Router({
         }
     },{
         name:'detail',path:'/detail/:id',component:detail
+    },{
+        name:'register',path:'/register',component:register
     }
   ]
 })

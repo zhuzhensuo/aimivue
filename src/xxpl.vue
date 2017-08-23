@@ -6,11 +6,13 @@
         <router-view></router-view>
       </div>
     </div>
+    <foot></foot>
   </div>
 
 </template>
 <script>
 import topbar from './components/topbar';
+import foot from './components/footer'
 export default {
   name: 'app',
   data (){
@@ -22,7 +24,8 @@ export default {
   
   },
   components:{
-    topbar
+    topbar,
+    foot
   }
 }
 </script>

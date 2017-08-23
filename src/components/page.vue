@@ -1,5 +1,5 @@
 <template>
- 	<div class="indexs clearfix">
+ 	<div class="indexs clearfix" v-if='pages.length>0'>
  		<a href="javascript:;" class="spec" v-if='now>0' @click='getPage(now--)'>&lt;</a>
  		<a href="javascript:;" v-for='(v,k) in pages' @click="fenye(k,$event.currentTarget)" :class='{"cur":now<tmp && now==k}' ref='a' v-if=''
  		>{{v}}</a>
@@ -83,8 +83,11 @@ export default {
  	}
   },
   created(){
-  	this.getPage();
-  	this.getNow();
+  	setTimeout(()=>{
+  		this.getPage();
+  		this.getNow();
+  	},100)
+  	
   },
 
 }
@@ -92,7 +95,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.indexs{ text-align:center;}
+	.indexs{ text-align:center;height:24px;}
 	.indexs a{display:inline-block;border:1px solid #ccc; height:21px; width:21px; line-height:21px;margin:0 3px;text-align:center;color:#666; background:#fff;font-size:12px;border-radius:2px;}
 	.indexs a.active{margin:0px 8px;}
 	.indexs a.cur{color:#fff;background:#2CB2EE; cursor:default;border-color:#2CB2EE;}

@@ -1,0 +1,10 @@
+export const CHANGE_NAME='CHANGE_NAME'
+export const CHANGE_LOGIN='CHANGE_LOGIN'
+export const GET_BAN_DATA='GET_BAN_DATA'
+export const LOGIN_OUT='LOGIN_OUT'
+export const GET_AMDQ_DATA='GET_AMDQ_DATA'
+export const GET_RGJL='GET_RGJL'
+export const REMEMBER_PWD='REMEMBER_PWD'
+export const GET_HKJH='GET_HKJH'
+export const LOG_SUCCESS='LOG_SUCCESS'
+

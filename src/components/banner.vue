@@ -43,7 +43,9 @@ export default {
 components:{
 	ban
 },
-computed:mapState(['haslogin'])
+computed:mapState({
+	haslogin:state=>state.cart.haslogin
+})
 }
 </script>
 

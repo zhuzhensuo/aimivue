@@ -78,7 +78,7 @@
 													<p>您输入额信息有误，请重新输入</p>
 													<i></i>
 												</div>
-												<div class="btns submit"><input type="submit" @click='loginIn' value="立即登录投资" class="loginnow button"></div>
+												<div class="btns submit"><input type="submit" @click='loginIn();getstatus($event.currentTarget);' value="立即登录投资" class="loginnow button"></div>
 												<div class="register">
 													<dl class="clearfix">
 														<dt><a href="register.html">还没有账号？立即注册</a></dt>
@@ -194,9 +194,14 @@ export default {
   		this.cur=i;
   		this.currentView=view;
   	},
+  	getstatus(node){
+  		node.setAttribute('disabled','disabled')
+  	},
   	...mapActions(['loginIn'])
   },
-  computed:mapState(['haslogin'])
+  computed:mapState({
+  	haslogin:state=>state.cart.haslogin
+  })
 }
 </script>
 
