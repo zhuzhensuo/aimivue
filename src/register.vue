@@ -79,7 +79,9 @@ export default {
   created(){
     
   },
-  computed:mapState(['haslogin']),
+  computed:mapState({
+    haslogin:state=>state.cart.haslogin
+  }),
   watch:{
    
   }

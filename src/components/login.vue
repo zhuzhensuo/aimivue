@@ -62,7 +62,10 @@ export default {
   	},
   	...mapActions(['loginIn']),
   },
-  computed:mapState(['haslogin','username']),
+  computed:mapState({
+  	haslogin:state=>state.cart.haslogin,
+  	username:state=>state.cart.username
+  }),
   created(){
   	
   }

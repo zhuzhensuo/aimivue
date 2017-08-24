@@ -32,18 +32,21 @@ export default {
   	topbar,
     foot
   },
-  created(){
-    if(this.haslogin){
-        router.push({path:'personcenter'});
-      }
-  },
-  computed:mapState(['haslogin']),
+
+  computed:mapState({
+    haslogin:state=>state.cart.haslogin
+  }),
   watch:{
     haslogin(){
       if(this.haslogin){
         router.push({path:'personcenter'});
       }
     }
+  },
+  created(){
+    if(this.haslogin){
+        router.push({path:'personcenter'});
+      }
   }
 }
 </script>

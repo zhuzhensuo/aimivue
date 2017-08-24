@@ -56,7 +56,7 @@ const router=new Router({
             }
         ],
         beforeEnter(from,to,next){
-            var login=store.state.haslogin;
+            var login=store.state.cart.haslogin;
             if(!login){
                 next('/loginpage')
             }else{

@@ -38,13 +38,18 @@ export default {
       });
     });
   },
-  computed:mapState(['haslogin']),
+  computed:mapState({
+    haslogin:state=>state.cart.haslogin
+  }),
   watch:{
     haslogin(){
       if(!this.haslogin){
         router.push({path:'/'}) 
       }
     }
+  },
+  created(){
+    
   }
 }
 </script>
