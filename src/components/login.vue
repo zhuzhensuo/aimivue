@@ -26,7 +26,7 @@
 					<a href="#">忘记密码？</a>
 				</div>
 				<div class="btns submit">
-					<input type="submit" value="登录" class="loginnow button" @click='loginIn();'>
+					<input type="submit" value="登录" class="loginnow button" @click='loginIn($event.currentTarget);'>
 				</div>
 				<div class="reg">还没账号？<a href="#">立即注册</a></div>
 			</form>

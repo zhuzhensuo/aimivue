@@ -23,8 +23,11 @@
 		</div>
 		
 		<div class="index">
-			<page :pageNum='5' v-show='fenyenav' :pageTotal='total' @getCurVal='getCurVal'></page>
+      <el-pagination
+    layout="prev, pager, next"
+    :total="hkjh.length" :page-size="displayNum" @current-change='getCurVal'></el-pagination>
 		</div>
+    
 	</div>
 </template>
 
@@ -44,8 +47,8 @@ export default {
   },
   methods:{
   	...mapActions(['getHkjh']),
-  	getCurVal(i){
-  		this.now=i;
+  	getCurVal(val){
+      this.now=val-1;
   	}
   },
   computed:{
@@ -57,7 +60,7 @@ export default {
   	}
   },
   created(){
-  	
+  	//v-if='index>=now*displayNum && index<(now+1)*displayNum'
   },
   mounted(){
   	this.getHkjh();
@@ -67,7 +70,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.index{margin-top: 30px;height:24px;}
+.index{margin-top: 30px;height:24px; text-align: center;}
 .data_tit li{float:left;width:25%; background:#fff; height:60px;cursor:pointer;text-align:center; line-height:56px; font-size:20px;color:#333; position:relative;}
 .data_tit li.active span{ background:white;border-bottom:2px solid #FF3248;color:#FF3248;height:60px; line-height:56px;}
 .data_tit li span{ display:block;min-width:150px;margin:0 auto;max-width:175px;}

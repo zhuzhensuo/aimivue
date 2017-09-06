@@ -69,8 +69,9 @@ export default {
         rememberpwds({commit},b){
             commit(type.REMEMBER_PWD,b);
         },
-        loginIn({commit}){
+        loginIn({commit},node){
             var self=this;
+            $(node).val('正在登录')
             var sj=$('.shoujihao').val();
             var pwd=$('.loginpwd').val();
             $.post({
@@ -80,10 +81,15 @@ export default {
                     if(data.result==0){
                         console.log(data.remark);
                     }else if(data.result==1){
-                        commit(type.CHANGE_NAME,data['data'][0]['mobile']);
-                        commit(type.CHANGE_LOGIN,true);
-                        commit(type.LOG_SUCCESS);
-                       // alert(state.rempwd)
+                        $(node).val('登录成功')
+                        setTimeout(function(){
+                            commit(type.CHANGE_NAME,data['data'][0]['mobile']);
+                            commit(type.CHANGE_LOGIN,true);
+                            commit(type.LOG_SUCCESS);
+                        },1000);
+                        
+                        
+                        
                     }
                 }
             })

@@ -4,6 +4,9 @@ import router from './router'
 import $ from 'jquery'
 import axios from 'axios'
 import vuex from './store'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+Vue.use(ElementUI)
 Vue.prototype.$store=vuex
 Vue.config.productionTip = false
 

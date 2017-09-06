@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "element-ui": "^1.4.3",
     "faker": "^4.1.0",
     "jquery": "^2.2.4",
     "mockjs": "^1.0.1-beta3",

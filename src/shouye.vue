@@ -5,6 +5,7 @@
     </keep-alive>
     
     <banner @showbox='show' keep-alive></banner>
+    
     <div class="main w1140">
         <div class="tonggaolans">
           <div class="news">
@@ -259,6 +260,8 @@ export default {
   computed:mapState(['haslogin']),
   mounted(){
     this.domove();
+  },
+  created(){
   }
 }
 </script>
